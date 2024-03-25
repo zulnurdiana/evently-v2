@@ -80,6 +80,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ msg: "OK", user: newUser });
   }
+
   if (eventType === "user.updated") {
     const { id, image_url, first_name, last_name, username } = evt.data;
 
@@ -94,6 +95,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ msg: "OK", user: newUser });
   }
+
   if (eventType === "user.deleted") {
     const { id } = evt.data;
     const deletedUser = await deleteUser(id!);
