@@ -19,6 +19,9 @@ import { Input } from "@/components/ui/input";
 import { eventFormSchema } from "@/lib/validator";
 import { eventDefaultValues } from "@/constants";
 import Dropdown from "./Dropdown";
+import { FileUploader } from "./FileUploader";
+import { useState } from "react";
+import Image from "next/image";
 
 type eventPrompType = {
   userId: string;
@@ -26,6 +29,8 @@ type eventPrompType = {
 };
 
 const EventForm = ({ userId, type }: eventPrompType) => {
+  const [files, setFiles] = useState<File[]>([]);
+
   const initialValues = eventDefaultValues;
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
@@ -103,12 +108,43 @@ const EventForm = ({ userId, type }: eventPrompType) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl className="h-72">
-                  
+                  <FileUploader
+                    onFieldChange={field.onChange}
+                    imageUrl={field.value}
+                    setFiles={setFiles}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <div className="w-full h-[54px] flex-center overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+            <Image
+              src={"/assets/icons/location-grey.svg"}
+              alt="location"
+              width={24}
+              height={24}
+            />
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input
+                      placeholder="Event location or Online"
+                      {...field}
+                      className="input-field"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
 
         <Button type="submit">Submit</Button>
