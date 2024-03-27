@@ -68,7 +68,7 @@ const EventForm = ({ userId, type }: eventPrompType) => {
           });
           if (newEvent) {
             form.reset();
-            router.push(`/event/${newEvent._id}`);
+            router.push(`/events/${newEvent._id}`);
           }
         } catch (error) {
           console.log(error);
