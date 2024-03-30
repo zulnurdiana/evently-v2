@@ -187,6 +187,8 @@ export async function getRelatedEventsByCategory({
       $and: [{ category: categoryId }, { _id: { $ne: eventId } }],
     };
 
+    
+
     const eventsQuery = Event.find(conditions)
       .sort({ createdAt: "desc" })
       .skip(skipAmount)
