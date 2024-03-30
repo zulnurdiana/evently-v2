@@ -1,4 +1,4 @@
-"user server";
+"use server";
 
 import { CheckoutOrderParams, CreateOrderParams } from "@/types";
 import { handleError } from "../utils";
