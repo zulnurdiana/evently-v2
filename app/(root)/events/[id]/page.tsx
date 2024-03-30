@@ -53,6 +53,7 @@ const EventDetails = async ({
                 </p>
               </div>
             </div>
+
             {/* Checkout Button */}
 
             <div className="flex flex-col gap-5 ">
