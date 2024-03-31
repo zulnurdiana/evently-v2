@@ -30,7 +30,7 @@ const ProfilePage = async () => {
       </section>
       <section className="wrapper py-8">
         <Collection
-          data={orderedEvents?.data}
+          data={orderedEvents}
           emptyTitle={"No events ticket purchase yet"}
           emptyStateSubtext={
             "No worries - plenty of exciting events to explore!"
@@ -56,7 +56,7 @@ const ProfilePage = async () => {
 
       <section className="wrapper py-8">
         <Collection
-          data={organizedEvents}
+          data={organizedEvents?.data}
           emptyTitle={"No events have been created yet"}
           emptyStateSubtext={"Go create some now"}
           collectionType={"Events_Organized"}
