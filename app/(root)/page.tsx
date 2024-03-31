@@ -64,8 +64,8 @@ export default async function Home({ searchParams }: SearchParamProps) {
           emptyStateSubtext={"Comeback latter"}
           collectionType={"All_Events"}
           limit={6}
-          page={1}
-          totalPage={2}
+          page={page}
+          totalPage={events?.totalPages}
         />
       </section>
     </>
