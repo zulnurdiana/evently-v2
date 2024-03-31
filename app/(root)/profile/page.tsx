@@ -5,15 +5,18 @@ import { auth } from "@clerk/nextjs";
 import { getEventsByUser } from "@/lib/actions/event.action";
 import { getOrdersByUser } from "@/lib/actions/order.action";
 import { IOrder } from "@/lib/database/models/order.model";
+import { SearchParamProps } from "@/types";
 
-const ProfilePage = async () => {
+const ProfilePage = async ({ searchParams }: SearchParamProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
+  const ordersPage = Number(searchParams?.ordersPage);
+  const eventsPage = Number(searchParams?.evemtsPage);
 
-  const orders = await getOrdersByUser({ userId, page: 1 });
+  const orders = await getOrdersByUser({ userId, page: ordersPage });
 
   const orderedEvents = orders?.data.map((order: IOrder) => order.event || []);
-  const organizedEvents = await getEventsByUser({ userId, page: 1 });
+  const organizedEvents = await getEventsByUser({ userId, page: eventsPage });
 
   return (
     <>
@@ -37,9 +40,9 @@ const ProfilePage = async () => {
           }
           collectionType={"My_Tickets"}
           limit={3}
-          page={1}
-          urlParamName="odersPage"
-          totalPage={2}
+          page={ordersPage}
+          urlParamName="ordersPage"
+          totalPage={orders?.totalPages}
         />
       </section>
       {/* Event Organized */}
@@ -61,9 +64,9 @@ const ProfilePage = async () => {
           emptyStateSubtext={"Go create some now"}
           collectionType={"Events_Organized"}
           limit={6}
-          page={1}
+          page={eventsPage}
           urlParamName="eventsPage"
-          totalPage={2}
+          totalPage={organizedEvents?.totalPages}
         />
       </section>
     </>
